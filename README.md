@@ -8,8 +8,8 @@ caractéristiques (année, kilométrage, carburant, puissance, etc.).
 1. **Nettoyage** : doublons, prix invalides
 2. **Prétraitement** : imputation des valeurs manquantes (médiane / valeur la plus fréquente),
    standardisation des variables numériques, One-Hot Encoding des variables catégorielles
-3. **Modélisation** : régression linéaire vs Random Forest, entraînés sur le log du prix
-4. **Évaluation** : MAE, RMSE, R² sur jeu de test + validation croisée (5 plis)
+3. **Modélisation** : régression Ridge vs Random Forest
+4. **Évaluation** : MAE, RMSE, R² sur jeu de test + validation croisée (5 plis), le meilleur modèle est choisi sur le R² en validation croisée
 
 ## Technologies
 
@@ -29,24 +29,26 @@ car-price-prediction/
 
 ## Données
 
-Télécharger un jeu de données de voitures d'occasion (ex. « Vehicle dataset » / CarDekho
-sur Kaggle) et le placer dans `data/cars.csv`. Le script s'adapte aux colonnes présentes :
-utiliser `--target` et `--drop` si les noms diffèrent.
+Jeu de données Kaggle « Vehicle dataset » (CarDekho, ~300 voitures d'occasion), à placer dans `data/cars.csv`.
+Colonnes : Car_Name, Year, Selling_Price, Present_Price, Kms_Driven, Fuel_Type, Seller_Type, Transmission, Owner.
 
 ## Utilisation
 
 ```bash
 pip install -r requirements.txt
-python train.py --data data/cars.csv --target selling_price --drop name
-python predict.py --car '{"year": 2015, "km_driven": 70000, "fuel": "Diesel", "seller_type": "Individual", "transmission": "Manual", "owner": "First Owner"}'
+python train.py
+python predict.py --car '{"Year": 2015, "Present_Price": 8.5, "Kms_Driven": 70000, "Fuel_Type": "Diesel", "Seller_Type": "Dealer", "Transmission": "Manual", "Owner": 0}'
 ```
 
 ## Résultats
 
 | Modèle | MAE | RMSE | R² |
 |---|---|---|---|
-| Régression linéaire | _à compléter_ | _à compléter_ | _à compléter_ |
-| Random Forest | _à compléter_ | _à compléter_ | _à compléter_ |
+| Régression Ridge | 1.48 | 2.52 | 0.753 |
+| Random Forest | 1.44 | 3.39 | 0.555 |
+
+Prix en lakhs de roupies. R² en validation croisée (5 plis) : Ridge 0.870, Random Forest 0.877 (modèle retenu).
+Le R² sur le jeu de test est plus bas et variable car le jeu de données est petit (301 lignes) et contient quelques voitures très chères.
 
 ![Réel vs prédit](reports/actual_vs_predicted.png)
 

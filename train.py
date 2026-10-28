@@ -8,10 +8,10 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
+from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import cross_val_score, train_test_split
 from sklearn.pipeline import Pipeline
@@ -21,8 +21,8 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("--data", default="data/cars.csv")
-    p.add_argument("--target", default="selling_price", help="Nom de la colonne prix")
-    p.add_argument("--drop", nargs="*", default=["name"], help="Colonnes à ignorer")
+    p.add_argument("--target", default="Selling_Price", help="Nom de la colonne prix")
+    p.add_argument("--drop", nargs="*", default=["Car_Name"], help="Colonnes à ignorer")
     p.add_argument("--seed", type=int, default=42)
     return p.parse_args()
 
@@ -46,9 +46,7 @@ def build_preprocessor(X):
 
 
 def make_model(regressor, preprocessor):
-    # Le prix est très asymétrique : on apprend sur log(prix)
-    pipe = Pipeline([("prep", preprocessor), ("reg", regressor)])
-    return TransformedTargetRegressor(regressor=pipe, func=np.log1p, inverse_func=np.expm1)
+    return Pipeline([("prep", preprocessor), ("reg", regressor)])
 
 
 def main():
@@ -69,7 +67,7 @@ def main():
     )
 
     candidates = {
-        "Régression linéaire": LinearRegression(),
+        "Régression Ridge": Ridge(alpha=1.0),
         "Random Forest": RandomForestRegressor(
             n_estimators=300, n_jobs=-1, random_state=args.seed
         ),
@@ -87,8 +85,8 @@ def main():
             "R2 test": r2_score(y_test, pred),
             "R2 CV (5 plis)": cv_r2,
         }
-        if results[name]["R2 test"] > best_r2:
-            best_name, best_model, best_r2 = name, model, results[name]["R2 test"]
+        if cv_r2 > best_r2:  # sélection sur la validation croisée
+            best_name, best_model, best_r2 = name, model, cv_r2
             best_pred = pred
 
     print("\n=== Résultats ===")
