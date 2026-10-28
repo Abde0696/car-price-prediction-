@@ -50,7 +50,7 @@ python predict.py --car '{"Year": 2015, "Present_Price": 8.5, "Kms_Driven": 7000
 Prix en lakhs de roupies. R² en validation croisée (5 plis) : Ridge 0.870, Random Forest 0.877 (modèle retenu).
 Le R² sur le jeu de test est plus bas et variable car le jeu de données est petit (301 lignes) et contient quelques voitures très chères.
 
-![Réel vs prédit](reports/actual_vs_predicted.png)
+![Réel vs prédit](actual_vs_predicted.png)
 
 ## Pistes d'amélioration
 
