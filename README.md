@@ -72,3 +72,11 @@ Le R² sur le jeu de test est plus bas et variable car le jeu de données est pe
 git clone https://github.com/Abde0696/car-price-prediction-.git
 cd car-price-prediction-
 pip install -r requirements.txt
+
+## Technologies
+
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- Matplotlib
