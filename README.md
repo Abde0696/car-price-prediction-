@@ -57,3 +57,11 @@ Le R² sur le jeu de test est plus bas et variable car le jeu de données est pe
 - Ajouter Gradient Boosting / XGBoost et un `GridSearchCV`
 - Extraire la marque depuis le nom du véhicule
 - Déployer une petite interface (Streamlit)
+
+## Features
+
+- Data preprocessing
+- Ridge Regression
+- Random Forest
+- Car price prediction
+- Model evaluation
