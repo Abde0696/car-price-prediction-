@@ -65,3 +65,10 @@ Le R² sur le jeu de test est plus bas et variable car le jeu de données est pe
 - Random Forest
 - Car price prediction
 - Model evaluation
+
+## Installation
+
+```bash
+git clone https://github.com/Abde0696/car-price-prediction-.git
+cd car-price-prediction-
+pip install -r requirements.txt
