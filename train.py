@@ -48,7 +48,7 @@ def build_preprocessor(X):
 def make_model(regressor, preprocessor):
     return Pipeline([("prep", preprocessor), ("reg", regressor)])
 
-
+# Fonction principale du programme
 def main():
     args = parse_args()
     df = pd.read_csv(args.data)
