@@ -51,6 +51,7 @@ def make_model(regressor, preprocessor):
 # Fonction principale du programme
 def main():
     args = parse_args()
+    # Chargement du jeu de données
     df = pd.read_csv(args.data)
     print(f"Données chargées : {df.shape[0]} lignes, {df.shape[1]} colonnes")
 
