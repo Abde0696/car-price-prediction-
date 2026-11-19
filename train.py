@@ -44,7 +44,7 @@ def build_preprocessor(X):
         ("cat", categorical, cat_cols),
     ])
 
-
+# Construction du pipeline complet (prétraitement + modèle)
 def make_model(regressor, preprocessor):
     return Pipeline([("prep", preprocessor), ("reg", regressor)])
 
