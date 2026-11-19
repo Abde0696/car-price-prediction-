@@ -17,7 +17,7 @@ from sklearn.model_selection import cross_val_score, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-
+# Lecture des arguments passés en ligne de commande
 def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("--data", default="data/cars.csv")
