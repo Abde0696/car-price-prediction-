@@ -97,6 +97,7 @@ def main():
 
     Path("models").mkdir(exist_ok=True)
     Path("reports").mkdir(exist_ok=True)
+    # Save the best trained model
     joblib.dump(best_model, "models/best_model.joblib")
 
     # Graphique prix réels vs prédits
