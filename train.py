@@ -26,7 +26,7 @@ def parse_args():
     p.add_argument("--seed", type=int, default=42)
     return p.parse_args()
 
-
+# Création du pipeline de prétraitement
 def build_preprocessor(X):
     num_cols = X.select_dtypes(include="number").columns.tolist()
     cat_cols = X.select_dtypes(exclude="number").columns.tolist()
